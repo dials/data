@@ -1,4 +1,4 @@
-bump2version
+bump2version==0.5.10
 mock
 pip==19.0.1
 py==1.8.0
