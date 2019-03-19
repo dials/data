@@ -1,22 +1,68 @@
 name: DIALS output of processing an L-cysteine dataset
-author: Ben Williams (2018)
+author: Ben Williams (2019)
 license: CC-BY 4.0
 description: >
   Typical DIALS output for a small-molecule dataset.
 
-  These were derived from the DIALS small molecule tutorial L-cysteine dataset
-  (https://zenodo.org/record/51405 files l-cyst_0[1-4].tar.gz).
+  Includes ten image files for each of four sweeps (a subset of https://doi.org/10.5281/zenodo.51405,
+  l-cyst_0[1-4].tar.gz, uncompressed) and associated processed files.
 
   On a linux terminal, the relevant CBF-format image files can be obtained with
   $ curl -O https://zenodo.org/record/51405/files/l-cyst_0[1-4].tar.gz
   $ ls *tar.gz | xargs -i tar xzf {}
 
-  The datablock.json file was then generated using
+  The datablock.json file was then generated with
   $ dials.import allow_multiple_sweeps=True l-cyst_0*cbf
+  using DIALS 1.14.0-g6458063ec.
 
+  The imported_experiments.json file was generated with
+  $ dials.import allow_multiple_sweeps=True l-cyst_0*cbf
   and the strong.pickle file was generated using
-  $ dials.find_spots datablock.json
+  $ dials.find_spots imported_experiments.json
+  both using DIALS 2.dev.89-gce3e9b077.
 
 data:
- - url: https://dials.diamond.ac.uk/regression_data/l-cysteine_four_sweeps/datablock.json
- - url: https://dials.diamond.ac.uk/regression_data/l-cysteine_four_sweeps/strong.pickle
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/datablock.json
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/imported_experiments.json
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_01_00001.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_01_00002.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_01_00003.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_01_00004.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_01_00005.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_01_00006.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_01_00007.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_01_00008.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_01_00009.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_01_00010.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_02_00001.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_02_00002.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_02_00003.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_02_00004.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_02_00005.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_02_00006.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_02_00007.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_02_00008.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_02_00009.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_02_00010.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_03_00001.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_03_00002.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_03_00003.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_03_00004.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_03_00005.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_03_00006.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_03_00007.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_03_00008.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_03_00009.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_03_00010.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_04_00001.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_04_00002.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_04_00003.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_04_00004.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_04_00005.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_04_00006.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_04_00007.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_04_00008.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_04_00009.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/l-cyst_04_00010.cbf
+ - url: https://raw.githubusercontent.com/dials/data-files/d99bfe5261c5e0a38a0a655510729987d094c7cc/l_cysteine_dials_output/strong.pickle
+
