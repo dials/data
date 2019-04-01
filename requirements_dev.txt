@@ -6,7 +6,7 @@ pytest==4.4.0
 pytest-runner==4.4
 pyyaml==5.1
 six==1.12.0
-Sphinx==2.0.0
+Sphinx==1.8.4 # pyup: <2.0 # for Python 2.7 and 3.4 support
 sphinx_rtd_theme==0.4.3
 tox==3.8.4
 twine==1.13.0
