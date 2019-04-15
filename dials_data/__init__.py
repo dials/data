@@ -19,15 +19,17 @@ __version_tuple__ = tuple(int(x) for x in __version__.split("."))
 
 
 def pytest_addoption(parser):
-    """Adds '--regression' option to pytest exactly once."""
-    if not hasattr(pytest_addoption, "done"):
+    """Adds '--regression' option to pytest if required."""
+    try:
         parser.addoption(
             "--regression",
             action="store_true",
             default=False,
             help="run regression tests. Download data for those tests if required",
         )
-    setattr(pytest_addoption, "done", True)
+    except ValueError:
+        # The Pytest parser already has this option added elsewhere
+        pass
 
 
 @pytest.fixture(scope="session")
