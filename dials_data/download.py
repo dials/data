@@ -215,7 +215,7 @@ class DataFetcher:
     def __init__(self, read_only=False):
         self._cache = {}
         self._target_dir = dials_data.datasets.repository_location()
-        self._read_only = read_only and os.access(self._target_dir, os.W_OK)
+        self._read_only = read_only and os.access(self._target_dir.strpath, os.W_OK)
 
     def __repr__(self):
         return "<%sDataFetcher: %s>" % (
