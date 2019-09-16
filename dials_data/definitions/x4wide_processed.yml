@@ -1,10 +1,12 @@
 name: X4 wide
-author: Graeme Winter (2013)
+author: Richard Gildea (2019)
 license: CC-BY 4.0
 description: >
   The complex cation lambda-[Ru(1,4,5,8-tetraazaphenanthrene)2(dipyridophenazine)]2+
   crystallizes in a 1:1 ratio with the oligonucleotide d(TCGGCGCCGA) in the
   presence of barium ions.
+  Data processed using the xia2/dials pipeline with:
+      xia2 image=$(dials.data get -q x4wide)/X4_wide_M1S4_2_0001.cbf
 
 data:
   - url: https://github.com/dials/data-files/raw/bd04ee2b2dee1b81f948e1de82f64857a782377e/x4wide/AUTOMATIC_DEFAULT_scaled.expt
