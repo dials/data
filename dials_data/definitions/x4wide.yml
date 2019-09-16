@@ -97,3 +97,7 @@ data:
   - url: http://dials.diamond.ac.uk/regression_data/X4_wide/X4_wide_M1S4_2_0088.cbf
   - url: http://dials.diamond.ac.uk/regression_data/X4_wide/X4_wide_M1S4_2_0089.cbf
   - url: http://dials.diamond.ac.uk/regression_data/X4_wide/X4_wide_M1S4_2_0090.cbf
+  - url: https://github.com/dials/data-files/raw/bd04ee2b2dee1b81f948e1de82f64857a782377e/x4wide/AUTOMATIC_DEFAULT_scaled.expt
+  - url: https://github.com/dials/data-files/raw/b54093d3dc29b9401bf7e8fa51d2a1b291d348d0/x4wide/AUTOMATIC_DEFAULT_scaled.refl
+  - url: https://github.com/dials/data-files/raw/b54093d3dc29b9401bf7e8fa51d2a1b291d348d0/x4wide/AUTOMATIC_DEFAULT_scaled.mtz
+  - url: https://github.com/dials/data-files/raw/b54093d3dc29b9401bf7e8fa51d2a1b291d348d0/x4wide/AUTOMATIC_DEFAULT_scaled_unmerged.mtz
