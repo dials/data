@@ -8,7 +8,8 @@ description: >
   proteinase K crystals.
 
   Data from visit mx21314-30, VMXi-AB0813, wells 12, 46, 112 & 151.
-  Processed with DIALS 2.0.1
+  Processed with DIALS 1.12.4 (*.json, *.pickle)
+  Processed with DIALS 2.0.1 (*.expt, *.refl)
 
 data:
  - url: https://dials.diamond.ac.uk/regression_data/vmxi_proteinase_k_sweeps/experiments_0.json
