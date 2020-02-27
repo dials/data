@@ -11,10 +11,15 @@ import py
 import textwrap
 import yaml
 
+try:
+    import importlib_resources
+except ImportError:
+    importlib_resources = None
+
 _hashinfo_formatversion = 1
 
 
-def _load_yml_definitions():
+def _load_yml_definitions_classic():
     """
     Read dataset .yml files from definitions/ and hashinfo/ directories.
     This is done once during the module import stage.
@@ -48,7 +53,50 @@ def _load_yml_definitions():
                 fileinfo_dirty.add(dataset_name)
 
 
-_load_yml_definitions()
+def _load_yml_definitions_importlib_old():
+    """
+    Read dataset .yml files from definitions/ and hashinfo/ directories.
+    This is done once during the module import stage.
+    """
+    global definition, fileinfo_dirty
+    definition = {}
+    fileinfo_dirty = set()
+    base_directory = os.path.join(
+        os.path.dirname(
+            importlib_resources.open_text("dials_data", "__init__.py").name
+        ),
+        "definitions",
+    )
+    for definition_file in os.listdir(base_directory):
+        if definition_file.endswith(".yml"):
+            with open(os.path.join(base_directory, definition_file), "rb") as fh:
+                dataset_definition = fh.read()
+            dataset_name = definition_file[:-4]
+            definition[dataset_name] = yaml.safe_load(dataset_definition)
+            dhash = hashlib.sha256()
+            dhash.update(dataset_definition)
+            definition[dataset_name]["hash"] = dhash.hexdigest()
+            h_file = os.path.join(base_directory, "..", "hashinfo", definition_file)
+            if not os.path.exists(h_file):
+                fileinfo_dirty.add(dataset_name)
+                continue
+            with open(h_file, "rb") as fh:
+                hashinfo = yaml.safe_load(fh)
+            if (
+                hashinfo["definition"] == definition[dataset_name]["hash"]
+                and hashinfo["formatversion"] == _hashinfo_formatversion
+            ):
+                definition[dataset_name]["hashinfo"] = hashinfo
+            else:
+                fileinfo_dirty.add(dataset_name)
+
+
+try:
+    _load_yml_definitions_classic()
+except NotImplementedError:
+    # if tuple(importlib_resources.__version__.split(".")) < ("1", "1")
+    _load_yml_definitions_importlib_old()
+    # otherwise can use the .files() API
 
 
 def create_integrity_record(dataset_name):
