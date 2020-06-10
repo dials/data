@@ -2,6 +2,7 @@ from __future__ import absolute_import, division, print_function
 
 import contextlib
 import os
+import tarfile
 
 import dials_data.datasets
 from six.moves.urllib.request import urlopen
@@ -179,6 +180,12 @@ def _fetch_filelist(filelist, file_hash):
             if not valid:
                 print("Downloading {}".format(source["url"]))
                 _download_to_file(source["url"], source["file"])
+
+                # If the file is a tar archive, then decompress
+                if tarfile.is_tarfile(source["file"]):
+                    print(f"Decompressing {source['file']}")
+                    with tarfile.open(source["file"]) as tar:
+                        tar.extractall(path=source["file"].dirname)
 
             # verify
             valid = True
