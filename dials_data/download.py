@@ -207,10 +207,11 @@ def _fetch_filelist(filelist, file_hash):
                 # files from the archive, then we need to decompress the tar archive
                 print(f"Decompressing {source['file']}")
                 with tarfile.open(source["file"].strpath) as tar:
-                    tar.extractall(path=source["file"].dirname)
-                for f in source["files"]:
-                    if not (target_dir / f).check(file=1):
-                        print(f"Expected file {f} not present in tar archive {source['file']}")
+                    for f in source["files"]:
+                        try:
+                            tar.extract(f, path=source["file"].dirname)
+                        except KeyError:
+                            print(f"Expected file {f} not present in tar archive {source['file']}")
 
 
 class DataFetcher:
