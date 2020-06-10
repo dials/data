@@ -134,6 +134,7 @@ def fetch_dataset(
         {
             "url": source["url"],
             "file": target_dir.join(os.path.basename(urlparse(source["url"]).path)),
+            "files": source.get("files"),
             "verify": hashinfo,
         }
         for source, hashinfo in zip(definition["data"], integrity_info["verify"])
@@ -181,12 +182,6 @@ def _fetch_filelist(filelist, file_hash):
                 print("Downloading {}".format(source["url"]))
                 _download_to_file(source["url"], source["file"])
 
-                # If the file is a tar archive, then decompress
-                if tarfile.is_tarfile(source["file"]):
-                    print(f"Decompressing {source['file']}")
-                    with tarfile.open(source["file"]) as tar:
-                        tar.extractall(path=source["file"].dirname)
-
             # verify
             valid = True
             fileinfo = {
@@ -201,6 +196,18 @@ def _fetch_filelist(filelist, file_hash):
             else:
                 source["verify"]["size"] = fileinfo["size"]
                 source["verify"]["hash"] = fileinfo["hash"]
+
+        # If the file is a tar archive, then decompress
+        if source["files"]:
+            target_dir = source["file"].dirpath()
+            if not all((target_dir / f).check(file=1) for f in source["files"]):
+                # Need to decompress the tar archive
+                print(f"Decompressing {source['file']}")
+                with tarfile.open(source["file"].strpath) as tar:
+                    tar.extractall(path=source["file"].dirname)
+                for f in source["files"]:
+                    if not (target_dir / f).check(file=1):
+                        print(f"Expected file {f} not present in tar archive {source['file']}")
 
 
 class DataFetcher:
