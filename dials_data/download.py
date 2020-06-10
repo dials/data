@@ -178,9 +178,11 @@ def _fetch_filelist(filelist, file_hash):
                             "hash", source["verify"]["hash"], file_hash(source["file"])
                         )
 
+            downloaded = False
             if not valid:
                 print("Downloading {}".format(source["url"]))
                 _download_to_file(source["url"], source["file"])
+                downloaded = True
 
             # verify
             valid = True
@@ -200,8 +202,9 @@ def _fetch_filelist(filelist, file_hash):
         # If the file is a tar archive, then decompress
         if source["files"]:
             target_dir = source["file"].dirpath()
-            if not all((target_dir / f).check(file=1) for f in source["files"]):
-                # Need to decompress the tar archive
+            if downloaded or not all((target_dir / f).check(file=1) for f in source["files"]):
+                # If the file has been (re)downloaded, or we don't have all the requested
+                # files from the archive, then we need to decompress the tar archive
                 print(f"Decompressing {source['file']}")
                 with tarfile.open(source["file"].strpath) as tar:
                     tar.extractall(path=source["file"].dirname)
