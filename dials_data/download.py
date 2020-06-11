@@ -205,13 +205,16 @@ def _fetch_filelist(filelist, file_hash):
             if downloaded or not all((target_dir / f).check(file=1) for f in source["files"]):
                 # If the file has been (re)downloaded, or we don't have all the requested
                 # files from the archive, then we need to decompress the tar archive
-                print(f"Decompressing {source['file']}")
+                print("Decompressing {file}".format(file=source['file']))
                 with tarfile.open(source["file"].strpath) as tar:
                     for f in source["files"]:
                         try:
                             tar.extract(f, path=source["file"].dirname)
                         except KeyError:
-                            print(f"Expected file {f} not present in tar archive {source['file']}")
+                            print(
+                                "Expected file {file} not present in tar archive {tarfile}".format(
+                                    file=f, tarfile=source["file"])
+                            )
 
 
 class DataFetcher:
