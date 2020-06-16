@@ -24,7 +24,7 @@ def is_valid_name(fileobj):
 
 
 @pytest.mark.parametrize(
-    "yaml_file", definition_yamls.values(), ids=definition_yamls.keys()
+    "yaml_file", list(definition_yamls.values()), ids=list(definition_yamls.keys())
 )
 def test_yaml_file_is_valid_definition(yaml_file):
     assert is_valid_name(yaml_file)
@@ -41,7 +41,7 @@ def test_yaml_file_is_valid_definition(yaml_file):
 
 
 @pytest.mark.parametrize(
-    "yaml_file", hashinfo_yamls.values(), ids=hashinfo_yamls.keys()
+    "yaml_file", list(hashinfo_yamls.values()), ids=list(hashinfo_yamls.keys())
 )
 def test_yaml_file_is_valid_hashinfo(yaml_file):
     assert is_valid_name(yaml_file)
