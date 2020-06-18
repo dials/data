@@ -2,6 +2,12 @@
 History
 =======
 
+2.1 (2020-06-11)
+^^^^^^^^^^^^^^^^
+
+* Drops Python 2.7 compatibility
+* Uses importlib.resources to access resource files (requires Python 3.9 or installed package importlib_resources)
+
 2.0 (2019-04-15)
 ^^^^^^^^^^^^^^^^
 

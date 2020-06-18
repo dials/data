@@ -1,12 +1,8 @@
-# -*- coding: utf-8 -*-
-
 """Module providing access to all known dataset definitions."""
 
-from __future__ import absolute_import, division, print_function
-
 import hashlib
+import importlib_resources
 import os
-import pkg_resources
 import py
 import textwrap
 import yaml
@@ -22,30 +18,28 @@ def _load_yml_definitions():
     global definition, fileinfo_dirty
     definition = {}
     fileinfo_dirty = set()
-    for definition_file in pkg_resources.resource_listdir("dials_data", "definitions"):
-        if definition_file.endswith(".yml"):
-            dataset_definition = pkg_resources.resource_string(
-                "dials_data", "definitions/" + definition_file
-            )
-            dataset_name = definition_file[:-4]
-            definition[dataset_name] = yaml.safe_load(dataset_definition)
-            dhash = hashlib.sha256()
-            dhash.update(dataset_definition)
-            definition[dataset_name]["hash"] = dhash.hexdigest()
-            h_file = "hashinfo/" + definition_file
-            if not pkg_resources.resource_exists("dials_data", h_file):
-                fileinfo_dirty.add(dataset_name)
-                continue
-            hashinfo = yaml.safe_load(
-                pkg_resources.resource_stream("dials_data", h_file)
-            )
-            if (
-                hashinfo["definition"] == definition[dataset_name]["hash"]
-                and hashinfo["formatversion"] == _hashinfo_formatversion
-            ):
-                definition[dataset_name]["hashinfo"] = hashinfo
-            else:
-                fileinfo_dirty.add(dataset_name)
+    base_directory = importlib_resources.files("dials_data") / "definitions"
+    hash_directory = importlib_resources.files("dials_data") / "hashinfo"
+    for definition_file in base_directory.glob("*.yml"):
+        dataset_definition = definition_file.read_bytes()
+        dataset_name = definition_file.stem
+        definition[dataset_name] = yaml.safe_load(dataset_definition)
+        dhash = hashlib.sha256()
+        dhash.update(dataset_definition)
+        definition[dataset_name]["hash"] = dhash.hexdigest()
+
+        h_file = hash_directory / definition_file.name
+        if not h_file.exists():
+            fileinfo_dirty.add(dataset_name)
+            continue
+        hashinfo = yaml.safe_load(h_file.read_bytes())
+        if (
+            hashinfo["definition"] == definition[dataset_name]["hash"]
+            and hashinfo["formatversion"] == _hashinfo_formatversion
+        ):
+            definition[dataset_name]["hashinfo"] = hashinfo
+        else:
+            fileinfo_dirty.add(dataset_name)
 
 
 _load_yml_definitions()
@@ -117,11 +111,11 @@ def get_resident_size(ds):
 def _human_readable(num, suffix="B"):
     for unit in ("", "k", "M", "G"):
         if num < 10:
-            return "%.1f%s%s" % (num, unit, suffix)
+            return "{:.1f}{}{}".format(num, unit, suffix)
         if num < 1024:
-            return "%.0f%s%s" % (num, unit, suffix)
+            return "{:.0f}{}{}".format(num, unit, suffix)
         num /= 1024.0
-    return "%.0f%s%s" % (num, "T", suffix)
+    return "{:.0f}{}{}".format(num, "T", suffix)
 
 
 def list_known_definitions(ds_list, quiet=False):
