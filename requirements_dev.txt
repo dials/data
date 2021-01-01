@@ -1,6 +1,6 @@
 bump2version==1.0.1
 importlib_resources>=1.1
-pip==20.2.4
+pip==20.3.3
 py==1.9.0
 pytest==6.1.2
 pyyaml==5.3.1
