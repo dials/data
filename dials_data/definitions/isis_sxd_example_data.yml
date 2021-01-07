@@ -4,7 +4,8 @@ license: CC-BY 4.0
 url: https://doi.org/10.5281/zenodo.4415768
 description: >
   Example datasets of NaCl, Vanadium, and an empty background run 
-  generated using SXD at the ISIS Neutron and Muon Source. 
+  generated using the Single Crystal Diffractometer (SXD) at the 
+  ISIS Neutron and Muon Source. 
   Files are given in .nxs (TOFRAW) and .raw formats.
 
 data:
