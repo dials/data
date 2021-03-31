@@ -17,3 +17,4 @@ data:
   - url: https://github.com/dials/data-files/raw/1916a8649e9f505199949f90822165d368c93872/image_examples/TIMEPIX_SU_516-stdgoni_0001.img
   - url: https://github.com/dials/data-files/raw/7260492a487e88dde58f8be044b21cef1c7578ef/image_examples/dectris_eiger_data_000001.h5
   - url: https://github.com/dials/data-files/raw/7260492a487e88dde58f8be044b21cef1c7578ef/image_examples/dectris_eiger_master.h5
+  - url: https://github.com/dials/data-files/raw/9ecf5a4e6d36a2c77574178d306292dd1c093359/image_examples/Gatan_float32_zero_array_001.dm4.gz
