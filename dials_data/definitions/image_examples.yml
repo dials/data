@@ -17,4 +17,4 @@ data:
   - url: https://github.com/dials/data-files/raw/1916a8649e9f505199949f90822165d368c93872/image_examples/TIMEPIX_SU_516-stdgoni_0001.img
   - url: https://github.com/dials/data-files/raw/7260492a487e88dde58f8be044b21cef1c7578ef/image_examples/dectris_eiger_data_000001.h5
   - url: https://github.com/dials/data-files/raw/7260492a487e88dde58f8be044b21cef1c7578ef/image_examples/dectris_eiger_master.h5
-  - url: https://github.com/dials/data-files/raw/f9a9f21b683e8820c85c7c726a9fd09bf9958e3a/image_examples/ThermoFisher_EPU-D_1.5_001.mrc.gz
+  - url: https://github.com/dials/data-files/raw/64666892ee8c5fefd2fadef5d5927a2c3c6c6502/image_examples/ThermoFisher_EPU-D_1.5_001.mrc.gz
