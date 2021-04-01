@@ -1,15 +1,11 @@
-#!/bin/bash
+#!/bin/bash -eux
 
-RESTRICT_REPOSITORY="dials/data"
-if [[ "${TRAVIS_REPO_SLUG}" != "${RESTRICT_REPOSITORY}" ]]; then
-  echo Skipping step outside of ${RESTRICT_REPOSITORY} repository
-  exit 0
-fi
-
-git config --global user.name "Travis CI on github.com/dials/data"
+git config --global user.name "Azure on github.com/dials/data"
 git config --global user.email "dials@noreply.github.com"
 git config credential.helper "store --file=.git/credentials"
 echo "https://${GITHUB_TOKEN}:@github.com" > .git/credentials
+
+exit 0
 
 if [[ "${TRAVIS_BRANCH}" == "master" ]] && [[ "${TRAVIS_PULL_REQUEST}" == "false" ]]; then
   echo Installing github cli
