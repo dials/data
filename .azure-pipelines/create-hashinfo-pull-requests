@@ -29,13 +29,13 @@ for DATASET in $(python -c "import dials_data.datasets as ddd; print('\n'.join(d
 do
   echo Checking ${DATASET}
   [ ${UPDATEBRANCHES[update-${DATASET}]+x} ] || {
-    echo create/update branch ${DATASET}
+    echo Creating/Updating branch ${DATASET}
     git checkout -b "update-${DATASET}"
     git reset --hard ${BUILD_SOURCEVERSION}
     git commit --allow-empty -m "Trigger update of dataset ${DATASET}"
     git push -f -u origin "update-${DATASET}"
-    echo create pull request
+    echo
+    echo Generating pull request:
     hub pull-request -f -m "Update dataset ${DATASET}"
   }
 done
-

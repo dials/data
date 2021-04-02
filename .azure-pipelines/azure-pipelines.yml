@@ -30,11 +30,33 @@ stages:
           python .azure-pipelines/flake8-validation.py
         displayName: Flake8 validation
 
+      # Set up constants for further build steps
+      - bash: |
+          echo "##vso[task.setvariable variable=BUILD_REPOSITORY_NAME;isOutput=true]${BUILD_REPOSITORY_NAME}"
+          echo "##vso[task.setvariable variable=BUILD_SOURCEBRANCH;isOutput=true]${BUILD_SOURCEBRANCH}"
+          diff -q <(git rev-parse HEAD~0^{tree}) <(git rev-parse HEAD~1^{tree}) >/dev/null && {
+            # Current git commit and parent commit have 100% identical files
+            echo "##vso[task.setvariable variable=AUTOMATED_COMMIT;isOutput=true]true"
+          } || {
+            echo "##vso[task.setvariable variable=AUTOMATED_COMMIT;isOutput=true]false"
+          }
+        displayName: Set up build constants
+        name: constants
+
+      - bash: |
+          echo BUILD_REPOSITORY_NAME = $(constants.BUILD_REPOSITORY_NAME)
+          echo BUILD_SOURCEBRANCH = $(constants.BUILD_SOURCEBRANCH)
+          echo AUTOMATED_COMMIT = $(constants.AUTOMATED_COMMIT)
+        displayName: Verify constants
 
 - stage: build
   displayName: Build
   dependsOn:
-  condition: false
+  - static
+  condition: not(and(eq(dependencies.static.outputs['checks.constants.AUTOMATED_COMMIT'], 'true'),
+                     or(startsWith(dependencies.static.outputs['checks.constants.BUILD_SOURCEBRANCH'], 'refs/pull/'),
+                        startsWith(dependencies.static.outputs['checks.constants.BUILD_SOURCEBRANCH'], 'refs/heads/update-'))))
+             # Skip entire build step on pointless pull request builds
   jobs:
   - job: build
     displayName: build package
@@ -52,7 +74,6 @@ stages:
 
       - bash: .azure-pipelines/update-package-version
         displayName: Set package version
-        condition: eq(variables['Build.Repository.Name'], 'Anthchirp/data')
 
       - bash: |
           set -ex
@@ -73,12 +94,49 @@ stages:
       - bash: python setup.py checkdocs
         displayName: Check package description
 
+- stage: update
+  displayName: Update hashes
+  dependsOn:
+  - static
+  condition: and(succeeded(),
+                 eq(dependencies.static.outputs['checks.constants.BUILD_REPOSITORY_NAME'], 'Anthchirp/data'),
+                 startsWith(dependencies.static.outputs['checks.constants.BUILD_SOURCEBRANCH'], 'refs/heads/update-'),
+                 eq(dependencies.static.outputs['checks.constants.AUTOMATED_COMMIT'], 'true'))
+             # Only run this stage on automated commits on 'update-...' branches on the main repository
+  jobs:
+  - job: update
+    displayName: Update hash information
+    pool:
+      vmImage: ubuntu-20.04
+    steps:
+      - task: UsePythonVersion@0
+        displayName: Set up python
+        inputs:
+          versionSpec: 3.9
+
+      - script: |
+          pip install -r requirements.txt
+          pip install -e .
+        displayName: Install package
+
+      - bash: .azure-pipelines/update-hashinfo
+        displayName: Update hash information
+        env:
+          GITHUB_TOKEN: $(GITHUB_TOKEN)
+
+      - bash: rm .git/credentials
+        displayName: Remove git credentials
+        condition: always()
+
 - stage: tests
   displayName: Run unit tests
   dependsOn:
   - static
   - build
-  condition: false
+  condition: and(succeeded(),
+                 not(and(eq(dependencies.static.outputs['checks.constants.BUILD_REPOSITORY_NAME'], 'Anthchirp/data'),
+                         startsWith(dependencies.static.outputs['checks.constants.BUILD_SOURCEBRANCH'], 'refs/heads/update-'))))
+             # Do not need to bother running tests on automated 'update-...' branches
   jobs:
   - job: linux
     pool:
@@ -97,17 +155,18 @@ stages:
     - template: ci.yml
 
 - stage: hashinfo
-  displayName: Update hash information
+  displayName: Check missing hashes
   dependsOn:
   - static
-#  - build
-#  - tests
-#  condition: eq(variables['Build.Repository.Name'], 'Anthchirp/data')
-             # and(..., ...)
-             # build on master/main, not a pull request
+  - build
+  - tests
+  condition: and(succeeded(),
+                 eq(dependencies.static.outputs['checks.constants.BUILD_SOURCEBRANCH'], 'refs/heads/master'),
+                 eq(dependencies.static.outputs['checks.constants.BUILD_REPOSITORY_NAME'], 'Anthchirp/data'))
+             # only run this job in the main branch of the main repository
   jobs:
   - job: hashinfo
-    displayName: Check for missing hashes
+    displayName: Check hashes
     pool:
       vmImage: ubuntu-20.04
     steps:
@@ -130,4 +189,3 @@ stages:
       - bash: rm .git/credentials
         displayName: Remove git credentials
         condition: always()
-
