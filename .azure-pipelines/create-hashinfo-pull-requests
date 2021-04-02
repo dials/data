@@ -36,6 +36,13 @@ do
     git push -f -u origin "update-${DATASET}"
     echo
     echo Generating pull request:
-    hub pull-request -f -m "Update dataset ${DATASET}"
+    hub pull-request -f -m "Update dataset ${DATASET}
+
+This is an automated pull request to trigger an update of the hash information on dataset \`${DATASET}\`.
+
+These pull requests normally consist of two commits: the first one is an empty commit that triggers the
+hash information update, and the second commit is the actual hash information update. Once both commits
+have appeared, the tests have passed, and you are happy with the results you can squash merge the PR.
+"
   }
 done
