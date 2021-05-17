@@ -24,8 +24,8 @@ steps:
     pip install --disable-pip-version-check -r $(Pipeline.Workspace)\src\requirements_dev.txt
   displayName: Install dependencies
 
-- script: |
-    pip install --disable-pip-version-check $(System.ArtifactsDirectory)\package\pypi\*.whl
+- powershell: |
+    pip install --disable-pip-version-check $(dir $(System.ArtifactsDirectory)/package/pypi/*.whl | % {$_.FullName})
   displayName: Install package
 
 - script: |
