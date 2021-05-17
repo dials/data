@@ -30,8 +30,12 @@ steps:
 
 - script: |
     set PYTHONDEVMODE=1
-    pytest -ra --cov=dials_data --cov-report=xml --cov-branch
+    coverage run -m pytest -ra
   displayName: Run tests
+  workingDirectory: $(Pipeline.Workspace)/src
+
+- script: coverage xml
+  displayName: Export coverage statistics
   workingDirectory: $(Pipeline.Workspace)/src
 
 - bash: bash <(curl -s https://codecov.io/bash) -t $(CODECOV_TOKEN) -n "Python $(PYTHON_VERSION) $(Agent.OS)"
