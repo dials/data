@@ -185,7 +185,7 @@ stages:
         python39:
           PYTHON_VERSION: 3.9
     steps:
-    - template: ci.yml
+    - template: ci-windows.yml
 
 - stage: deploy
   displayName: Publish release
