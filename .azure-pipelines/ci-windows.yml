@@ -29,7 +29,8 @@ steps:
   displayName: Install package
 
 - script: |
-    PYTHONDEVMODE=1 pytest -ra --cov=dials_data --cov-report=xml --cov-branch
+    set PYTHONDEVMODE=1
+    pytest -ra --cov=dials_data --cov-report=xml --cov-branch
   displayName: Run tests
   workingDirectory: $(Pipeline.Workspace)/src
 
