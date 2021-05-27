@@ -253,6 +253,7 @@ stages:
           versionSpec: 3.9
 
       - script: |
+          set -eux
           pip install --disable-pip-version-check -r requirements.txt
           pip install --disable-pip-version-check -e .
         displayName: Install package
