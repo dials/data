@@ -1,10 +1,11 @@
 import argparse
 import sys
 
+import yaml
+
 import dials_data
 import dials_data.datasets
 import dials_data.download
-import yaml
 
 
 def cli_info(cmd_args):

@@ -5,8 +5,9 @@ import tarfile
 import warnings
 import zipfile
 from pathlib import Path
-from urllib.request import urlopen
 from urllib.parse import urlparse
+from urllib.request import urlopen
+
 import dials_data.datasets
 
 fcntl, msvcrt = None, None
@@ -109,20 +110,20 @@ def fetch_dataset(
     download_lockdir=None,
 ):
     """Check for the presence or integrity of the local copy of the specified
-       test dataset. If the dataset is not available or out of date then attempt
-       to download/update it transparently.
+    test dataset. If the dataset is not available or out of date then attempt
+    to download/update it transparently.
 
-       :param verbose:          Show everything as it happens.
-       :param pre_scan:         If all files are present and all file sizes match
-                                then skip file integrity check and exit quicker.
-       :param read_only:        Only use existing data, never download anything.
-                                Implies pre_scan=True.
-       :returns:                False if the dataset can not be downloaded/updated
-                                for any reason.
-                                True if the dataset is present and passes a
-                                cursory inspection.
-                                A validation dictionary if the dataset is present
-                                and was fully verified.
+    :param verbose:          Show everything as it happens.
+    :param pre_scan:         If all files are present and all file sizes match
+                             then skip file integrity check and exit quicker.
+    :param read_only:        Only use existing data, never download anything.
+                             Implies pre_scan=True.
+    :returns:                False if the dataset can not be downloaded/updated
+                             for any reason.
+                             True if the dataset is present and passes a
+                             cursory inspection.
+                             A validation dictionary if the dataset is present
+                             and was fully verified.
     """
     if dataset not in dials_data.datasets.definition:
         return False
@@ -239,17 +240,17 @@ def _fetch_filelist(filelist, file_hash):
 class DataFetcher:
     """A class that offers access to regression datasets.
 
-       To initialize:
-           df = DataFetcher()
-       Then
-           df('insulin')
-       returns a py.path object to the insulin data. If that data is not already
-       on disk it is downloaded automatically.
+    To initialize:
+        df = DataFetcher()
+    Then
+        df('insulin')
+    returns a py.path object to the insulin data. If that data is not already
+    on disk it is downloaded automatically.
 
-       To disable all downloads:
-           df = DataFetcher(read_only=True)
+    To disable all downloads:
+        df = DataFetcher(read_only=True)
 
-       Do not use this class directly in tests! Use the dials_data fixture.
+    Do not use this class directly in tests! Use the dials_data fixture.
     """
 
     def __init__(self, read_only=False):
@@ -259,7 +260,8 @@ class DataFetcher:
 
     def __repr__(self):
         return "<{}DataFetcher: {}>".format(
-            "R/O " if self._read_only else "", self._target_dir.strpath,
+            "R/O " if self._read_only else "",
+            self._target_dir.strpath,
         )
 
     def result_filter(self, result, **kwargs):
