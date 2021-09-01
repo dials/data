@@ -10,11 +10,42 @@ from urllib.request import urlopen
 
 import dials_data.datasets
 
-fcntl, msvcrt = None, None
 if os.name == "posix":
     import fcntl
+
+    def _platform_lock(file_handle):
+        fcntl.lockf(file_handle, fcntl.LOCK_EX)
+
+    def _platform_unlock(file_handle):
+        fcntl.lockf(file_handle, fcntl.LOCK_UN)
+
+
 elif os.name == "nt":
     import msvcrt
+
+    def _platform_lock(file_handle):
+        file_handle.seek(0)
+        while True:
+            try:
+                msvcrt.locking(file_handle.fileno(), msvcrt.LK_LOCK, 1)
+                # Call will only block for 10 sec and then raise
+                # OSError: [Errno 36] Resource deadlock avoided
+                break  # lock obtained
+            except OSError as e:
+                if e.errno != errno.EDEADLK:
+                    raise
+
+    def _platform_unlock(file_handle):
+        file_handle.seek(0)
+        msvcrt.locking(file_handle.fileno(), msvcrt.LK_UNLCK, 1)
+
+
+else:
+
+    def _platform_lock(file_handle):
+        raise NotImplementedError("File locking not supported on this platform")
+
+    _platform_unlock = _platform_lock
 
 
 @contextlib.contextmanager
@@ -27,32 +58,14 @@ def _file_lock(file_handle):
       with _file_lock(fh):
         (..)
     """
-    if not fcntl and not msvcrt:
-        raise NotImplementedError("File locking not supported on this platform")
     lock = False
     try:
-        if fcntl:
-            fcntl.lockf(file_handle, fcntl.LOCK_EX)
-        else:
-            file_handle.seek(0)
-            while True:
-                try:
-                    msvcrt.locking(file_handle.fileno(), msvcrt.LK_LOCK, 1)
-                    # Call will only block for 10 sec and then raise
-                    # OSError: [Errno 36] Resource deadlock avoided
-                    break  # lock obtained
-                except OSError as e:
-                    if e.errno != errno.EDEADLK:
-                        raise
+        _platform_lock(file_handle)
         lock = True
         yield
     finally:
         if lock:
-            if fcntl:
-                fcntl.lockf(file_handle, fcntl.LOCK_UN)
-            else:
-                file_handle.seek(0)
-                msvcrt.locking(file_handle.fileno(), msvcrt.LK_UNLCK, 1)
+            _platform_unlock(file_handle)
 
 
 @contextlib.contextmanager

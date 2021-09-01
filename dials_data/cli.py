@@ -33,13 +33,11 @@ def cli_info(cmd_args):
             print("{}={}".format(k, information[k]))
     else:
         print(
-            """
-DIALS regression data manager v{information[version.full]}
+            f"""
+DIALS regression data manager v{information['version.full']}
 
-repository location: {information[repository.location]}
-""".format(
-                information=information
-            ).strip()
+repository location: {information['repository.location']}
+""".strip()
         )
 
 
