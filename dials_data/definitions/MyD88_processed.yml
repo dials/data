@@ -1,0 +1,13 @@
+name: MyD88 processed
+author: David Waterman (2021)
+license: CC-BY 4.0
+description: >
+  The first dataset from https://doi.org/10.15785/SBGRID/814, imported
+  and strong spots found with DIALS:
+    $ dials.import 814/1/*.img distance=2193
+    $ dials.find_spots imported.expt d_max=20
+
+data:
+  - url: https://github.com/dials/data-files/raw/de00f3d3d08b14cd2cfe0c619924278fe84ad5b0/MyD88_processed/imported.expt
+  - url: https://github.com/dials/data-files/raw/de00f3d3d08b14cd2cfe0c619924278fe84ad5b0/MyD88_processed/strong.refl
+
