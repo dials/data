@@ -8,6 +8,6 @@ description: >
     $ dials.find_spots imported.expt d_max=20
 
 data:
-  - url: https://github.com/dials/data-files/raw/de00f3d3d08b14cd2cfe0c619924278fe84ad5b0/MyD88_processed/imported.expt
-  - url: https://github.com/dials/data-files/raw/de00f3d3d08b14cd2cfe0c619924278fe84ad5b0/MyD88_processed/strong.refl
+  - url: https://github.com/dials/data-files/raw/7acc335e3299356f1b025d17c6119535b67e89b9/MyD88_processed/imported.expt
+  - url: https://github.com/dials/data-files/raw/7acc335e3299356f1b025d17c6119535b67e89b9/MyD88_processed/strong.refl
 
