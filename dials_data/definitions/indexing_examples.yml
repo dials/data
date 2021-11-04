@@ -1,0 +1,12 @@
+name: Sample datasets for indexing tests
+author: Nicholas Devenish (2021)
+license: various
+description: >
+  Indexing examples used for tests in DIALS.
+data:
+  - url: https://github.com/dials/data-files/raw/8558de4cd84a06ef3363f1461d656cd591e99e36/indexing_examples/lattice_failure-lpe4-2-a15.expt
+  - url: https://github.com/dials/data-files/raw/8558de4cd84a06ef3363f1461d656cd591e99e36/indexing_examples/lattice_failure-lpe4-2-a15_strong.pickle
+  - url: https://github.com/dials/data-files/raw/8558de4cd84a06ef3363f1461d656cd591e99e36/indexing_examples/phi_scan.expt
+  - url: https://github.com/dials/data-files/raw/8558de4cd84a06ef3363f1461d656cd591e99e36/indexing_examples/phi_scan_old.expt
+  - url: https://github.com/dials/data-files/raw/8558de4cd84a06ef3363f1461d656cd591e99e36/indexing_examples/phi_scan_strong.pickle
+
