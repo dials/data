@@ -1,10 +1,10 @@
-name: SSX CuNiR test data
+name: DIALS output of processing a SSX CuNiR data set
 author: James Beilsten-Edmands (2021)
 license: CC-BY 4.0
 description: >
   Example processed SSX data on CuNiR, taken on I24 beamline at Diamond
   Light Source, courtesy of Robin Owen and Mike Hough.
-  5 images were processed with dials v3.7.3, with and without a reference
+  5 images were processed with DIALS v3.7.3, with and without a reference
   geometry, for testing indexing.
 
 data:
