@@ -32,7 +32,7 @@ def cli_info(cmd_args):
     }
     if args.verbose:
         for k in sorted(information):
-            print("{}={}".format(k, information[k]))
+            print(f"{k}={information[k]}")
     else:
         print(
             f"""
@@ -88,7 +88,7 @@ def cli_get(cmd_args):
         if args.quiet:
             print(repository.join(ds).strpath)
         else:
-            print("Dataset {} stored in {}".format(ds, repository.join(ds).strpath))
+            print(f"Dataset {ds} stored in {repository.join(ds).strpath}")
 
 
 def cli_list(cmd_args):
