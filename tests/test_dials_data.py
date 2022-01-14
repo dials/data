@@ -49,7 +49,7 @@ def test_datafetcher_constructs_py_path(fetcher, root):
     )
 
     ds = df("dataset", pathlib=False)
-    assert ds == pathlib.Path("/tmp/root/dataset")
+    assert pathlib.Path(ds).resolve() == pathlib.Path("/tmp/root/dataset").resolve()
     assert isinstance(ds, py.path.local)
     fetcher.assert_called_once()
 
