@@ -72,7 +72,7 @@ def test_datafetcher_constructs_path(fetcher, root):
 
     with pytest.warns(DeprecationWarning):
         ds = df("dataset")
-    assert ds == test_path / "dataset"
+    assert ds == test_path.joinpath("dataset").resolve()
     assert not isinstance(
         ds, pathlib.Path
     )  # default is currently to return py.path.local()
