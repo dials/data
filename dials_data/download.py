@@ -75,13 +75,14 @@ def _file_lock(file_handle):
 
 
 @contextlib.contextmanager
-def download_lock(target_dir):
+def download_lock(target_dir: Path):
     """
     Obtains a (cooperative) lock on a lockfile in a target directory, so only a
     single (cooperative) process can enter this context manager at any one time.
     If the lock is held this will block until the existing lock is released.
     """
-    with target_dir.join(".lock").open(mode="w", ensure=True) as fh:
+    target_dir.mkdir(parents=True, exist_ok=True)
+    with target_dir.joinpath(".lock").open(mode="w") as fh:
         with _file_lock(fh):
             yield
 
@@ -128,7 +129,7 @@ def fetch_dataset(
     read_only: bool = False,
     verbose: bool = False,
     pre_scan: bool = True,
-    download_lockdir=None,
+    download_lockdir: Optional[Path] = None,
 ) -> Union[bool, Any]:
     """Check for the presence or integrity of the local copy of the specified
     test dataset. If the dataset is not available or out of date then attempt
