@@ -87,7 +87,7 @@ def download_lock(target_dir: Path):
             yield
 
 
-def _download_to_file(url, pyfile):
+def _download_to_file(url, pyfile: Path):
     """
     Downloads a single URL to a file.
     """
@@ -99,7 +99,8 @@ def _download_to_file(url, pyfile):
         received = 0
         block_size = 8192
         # Allow for writing the file immediately so we can empty the buffer
-        with pyfile.open(mode="wb", ensure=True) as f:
+        pyfile.parent.mkdir(parents=True, exist_ok=True)
+        with pyfile.open(mode="wb") as f:
             while True:
                 block = socket.read(block_size)
                 received += len(block)
@@ -173,7 +174,7 @@ def fetch_dataset(
 
     if pre_scan or read_only:
         if all(
-            item["file"].s_file()
+            item["file"].is_file()
             and item["verify"].get("size")
             and item["verify"]["size"] == item["file"].stat().st_size
             for item in filelist
