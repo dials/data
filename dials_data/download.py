@@ -7,8 +7,11 @@ import tarfile
 import warnings
 import zipfile
 from pathlib import Path
+from typing import Any
 from urllib.parse import urlparse
 from urllib.request import urlopen
+
+import py.path
 
 import dials_data.datasets
 
@@ -270,7 +273,7 @@ class DataFetcher:
 
     def __init__(self, read_only=False):
         self._cache = {}
-        self._target_dir = dials_data.datasets.repository_location()
+        self._target_dir = py.path.local(dials_data.datasets.repository_location())
         self._read_only = read_only and os.access(self._target_dir.strpath, os.W_OK)
 
     def __repr__(self):
@@ -322,7 +325,7 @@ class DataFetcher:
             return self.result_filter(**result)
         return self.result_filter(**self._cache[test_data])
 
-    def _attempt_fetch(self, test_data):
+    def _attempt_fetch(self, test_data) -> dict[str, Any]:
         if self._read_only:
             data_available = fetch_dataset(test_data, pre_scan=True, read_only=True)
         else:

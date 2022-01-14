@@ -17,19 +17,19 @@ def test_all_datasets_can_be_parsed():
 
 def test_repository_location():
     rl = dials_data.datasets.repository_location()
-    assert rl.check(dir=1)
+    assert rl.is_dir()
 
 
 def test_fetching_undefined_datasets_does_not_crash():
     df = dials_data.download.DataFetcher(read_only=True)
-    assert df("aardvark") is False
+    assert df("aardvark", pathlib=True) is False
 
 
 def test_requests_for_future_datasets_can_be_intercepted():
     df = dials_data.download.DataFetcher(read_only=True)
     df.result_filter = mock.Mock()
     df.result_filter.return_value = False
-    assert df("aardvark") is False
+    assert df("aardvark", pathlib=True) is False
     df.result_filter.assert_called_once_with(result=False)
 
 
@@ -70,7 +70,8 @@ def test_datafetcher_constructs_path(fetcher, root):
         "dataset", pre_scan=True, read_only=False, download_lockdir=mock.ANY
     )
 
-    ds = df("dataset")
+    with pytest.warns(DeprecationWarning):
+        ds = df("dataset")
     assert ds == pathlib.Path(test_path) / "dataset"
     assert not isinstance(
         ds, pathlib.Path
