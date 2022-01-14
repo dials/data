@@ -42,7 +42,7 @@ def test_datafetcher_constructs_py_path(fetcher, root):
     df = dials_data.download.DataFetcher(read_only=True)
     with pytest.warns(DeprecationWarning):
         ds = df("dataset")
-    assert ds == pathlib.Path("/tmp/root/dataset")
+    assert pathlib.Path(ds).resolve() == pathlib.Path("/tmp/root/dataset").resolve()
     assert isinstance(ds, py.path.local)
     fetcher.assert_called_once_with(
         "dataset", pre_scan=True, read_only=False, download_lockdir=mock.ANY
@@ -72,7 +72,7 @@ def test_datafetcher_constructs_path(fetcher, root):
 
     with pytest.warns(DeprecationWarning):
         ds = df("dataset")
-    assert ds == test_path.joinpath("dataset").resolve()
+    assert pathlib.Path(ds).resolve() == test_path.joinpath("dataset").resolve()
     assert not isinstance(
         ds, pathlib.Path
     )  # default is currently to return py.path.local()
