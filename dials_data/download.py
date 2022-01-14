@@ -203,12 +203,8 @@ def _fetch_filelist(filelist: list[dict[str, Any]], file_hash) -> None:
                 if source["verify"]:
                     if source["verify"]["size"] != source["file"].stat().st_size:
                         valid = False
-                        print("size")
                     elif source["verify"]["hash"] != file_hash(source["file"]):
                         valid = False
-                        print(
-                            "hash", source["verify"]["hash"], file_hash(source["file"])
-                        )
 
             downloaded = False
             if not valid:
