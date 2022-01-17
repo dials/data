@@ -32,7 +32,7 @@ stages:
 
       - bash: |
           set -eux
-          pip install mypy==0.910 types-PyYAML==5.4.9  # Pin to versions in corresponding pre-commit hook.
+          pip install --disable-pip-version-check mypy==0.910 types-PyYAML==5.4.9  # Pin to versions in corresponding pre-commit hook.
           mypy --no-strict-optional dials_data/
         displayName: Type checking
 
