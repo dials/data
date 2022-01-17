@@ -32,9 +32,9 @@ stages:
 
       - bash: |
           set -eux
-          pip install mypy==0.910  # Pin to version in corresponding pre-commit hook.
+          pip install mypy==0.910 types-PyYAML==5.4.9  # Pin to versions in corresponding pre-commit hook.
           mypy --no-strict-optional dials_data/
-        displayName: MyPy type hint checking
+        displayName: Type checking
 
       # Set up constants for further build steps
       - bash: |
