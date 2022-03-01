@@ -185,36 +185,35 @@ def _fetch_filelist(filelist: list[dict[str, Any]]) -> None:
 
 
 def _fetch_file(session: requests.Session, source: dict[str, Any]) -> None:
-    if source.get("type", "file") == "file":
-        valid = False
-        if source["file"].is_file():
-            # verify
-            valid = True
-            if source["verify"]:
-                if source["verify"]["size"] != source["file"].stat().st_size:
-                    valid = False
-                elif source["verify"]["hash"] != file_hash(source["file"]):
-                    valid = False
-
-        downloaded = False
-        if not valid:
-            print(f"Downloading {source['url']}")
-            _download_to_file(session, source["url"], source["file"])
-            downloaded = True
-
+    valid = False
+    if source["file"].is_file():
         # verify
         valid = True
         if source["verify"]:
             if source["verify"]["size"] != source["file"].stat().st_size:
-                print(
-                    f"File size mismatch on {source['file']}: "
-                    f"{source['file'].stat().st_size}, expected {source['verify']['size']}"
-                )
+                valid = False
             elif source["verify"]["hash"] != file_hash(source["file"]):
-                print(f"File hash mismatch on {source['file']}")
-        else:
-            source["verify"]["size"] = source["file"].stat().st_size
-            source["verify"]["hash"] = file_hash(source["file"])
+                valid = False
+
+    downloaded = False
+    if not valid:
+        print(f"Downloading {source['url']}")
+        _download_to_file(session, source["url"], source["file"])
+        downloaded = True
+
+    # verify
+    valid = True
+    if source["verify"]:
+        if source["verify"]["size"] != source["file"].stat().st_size:
+            print(
+                f"File size mismatch on {source['file']}: "
+                f"{source['file'].stat().st_size}, expected {source['verify']['size']}"
+            )
+        elif source["verify"]["hash"] != file_hash(source["file"]):
+            print(f"File hash mismatch on {source['file']}")
+    else:
+        source["verify"]["size"] = source["file"].stat().st_size
+        source["verify"]["hash"] = file_hash(source["file"])
 
     # If the file is a tar archive, then decompress
     if source["files"]:
