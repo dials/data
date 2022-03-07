@@ -94,7 +94,7 @@ def _download_to_file(session: requests.Session, url: str, pyfile: Path):
     """
     Downloads a single URL to a file.
     """
-    with requests.get(url, stream=True) as r:
+    with session.get(url, stream=True) as r:
         r.raise_for_status()
         pyfile.parent.mkdir(parents=True, exist_ok=True)
         with pyfile.open(mode="wb") as f:
@@ -229,7 +229,8 @@ def _fetch_file(session: requests.Session, source: dict[str, Any]) -> None:
                             zf.extract(f, path=source["file"].parent)
                     except KeyError:
                         print(
-                            f"Expected file {f} not present in zip archive {source['file']}"
+                            f"Expected file {f} not present "
+                            f"in zip archive {source['file']}"
                         )
             else:
                 with tarfile.open(source["file"]) as tar:
@@ -238,7 +239,8 @@ def _fetch_file(session: requests.Session, source: dict[str, Any]) -> None:
                             tar.extract(f, path=source["file"].parent)
                         except KeyError:
                             print(
-                                f"Expected file {f} not present in tar archive {source['file']}"
+                                f"Expected file {f} not present "
+                                f"in tar archive {source['file']}"
                             )
 
 
