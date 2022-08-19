@@ -10,5 +10,6 @@ description: >
   compressed to save file space.
 
 data:
-  - url: https://zenodo.org/record/7005252/files/lyso009a_0087.JF07T32V01_master_4img.h5
+  - url: https://zenodo.org/record/7011333/files/lyso009a_0087.JF07T32V01_master_4img.h5
+  - url: https://zenodo.org/record/7011333/files/lyso009a_0087.JF07T32V01_master_4img_imported.expt
 
