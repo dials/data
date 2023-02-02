@@ -53,14 +53,14 @@ Install ``dials-data`` as above.
 
 If your test is written in pytest and you use the fixture provided by
 ``dials-data`` then you can use regression datasets in your test by
-adding the ``dials-data`` fixture to your test, ie:
+adding the ``dials_data`` fixture to your test, ie:
 
 .. code-block:: python
 
     def test_accessing_a_dataset(dials_data):
         location = dials_data("x4wide", pathlib=True)
 
-The fixture/variable ``dials-data`` in the test is a
+The fixture/variable ``dials_data`` in the test is a
 ``dials_data.download.DataFetcher`` instance, which can be called with
 the name of the dataset you want to access (here: ``x4wide``). If the
 files are not present on the machine then they will be downloaded.
