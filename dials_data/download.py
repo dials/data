@@ -343,9 +343,7 @@ class DataFetcher:
                 verify=self._verify,
             )
             if self._verify and not hashinfo:
-                raise RuntimeError(
-                    f"Verification failure downloading dataset {test_data}"
-                )
+                raise RuntimeError(f"Error downloading dataset {test_data}")
         if hashinfo:
             return self._target_dir / test_data
         else:
