@@ -30,14 +30,14 @@ repos:
 
 # Automatic source code formatting
 - repo: https://github.com/psf/black
-  rev: 23.1.0
+  rev: 23.7.0
   hooks:
   - id: black
     args: [--safe, --quiet]
 
 # Linting
 - repo: https://github.com/PyCQA/flake8
-  rev: 6.0.0
+  rev: 6.1.0
   hooks:
   - id: flake8
     additional_dependencies: ['flake8-comprehensions==3.8.0']
@@ -46,7 +46,7 @@ repos:
 # Remember to change versions in .azure-pipelines/azure-pipelines.yml to match
 # the versions here.
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.0.1
+  rev: v1.5.0
   hooks:
   - id: mypy
     files: 'dials_data/.*\.py$'
