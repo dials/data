@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 import argparse
 import sys
 
 import yaml
 
-import dials_data
 import dials_data.datasets
 import dials_data.download
 
@@ -30,7 +31,7 @@ def cli_info(cmd_args):
     }
     if args.verbose:
         for k in sorted(information):
-            print("{}={}".format(k, information[k]))
+            print(f"{k}={information[k]}")
     else:
         print(
             f"""
@@ -70,7 +71,7 @@ def cli_get(cmd_args):
 
     repository = dials_data.datasets.repository_location()
     if not args.quiet:
-        print(f"Repository location: {repository.strpath}\n")
+        print(f"Repository location: {repository}\n")
 
     for ds in args.dataset:
         if not args.quiet:
@@ -78,15 +79,17 @@ def cli_get(cmd_args):
         hashinfo = dials_data.download.fetch_dataset(
             ds, ignore_hashinfo=args.create_hashinfo, verify=args.verify
         )
+        if not hashinfo:
+            exit(f"Error downloading dataset {ds}")
         if args.create_hashinfo:
             if not args.quiet:
                 print(f"Writing file integrity information to {ds}.yml")
             with open(f"{ds}.yml", "w") as fh:
                 yaml.dump(hashinfo, fh, default_flow_style=False)
         if args.quiet:
-            print(repository.join(ds).strpath)
+            print(repository / ds)
         else:
-            print("Dataset {} stored in {}".format(ds, repository.join(ds).strpath))
+            print(f"Dataset {ds} stored in {repository.joinpath(ds)}")
 
 
 def cli_list(cmd_args):

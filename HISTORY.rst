@@ -2,6 +2,28 @@
 History
 =======
 
+2.5 (????-??-??)
+^^^^^^^^^^^^^^^^
+
+* Fix permission generation when extracting tar archives. Files extracted will be created with
+  default permissions, instead of what has been packed in with the archive. This solves the issue
+  of shared data stores becoming inaccessible to some users.
+
+2.4 (2022-03-07)
+^^^^^^^^^^^^^^^^
+
+* dials_data no longer uses ``py.path`` internally.
+* dials_data now includes type checking with mypy.
+* We started using the ``requests`` library for faster downloads.
+* Downloads now happen in parallel.
+
+2.3 (2022-01-11)
+^^^^^^^^^^^^^^^^
+
+* Drop Python 3.6 compatibility
+* Dataset `SSX_CuNiR_processed` has been renamed to `cunir_serial_processed` for consistency
+  with `cunir_serial`
+
 2.2 (2021-06-18)
 ^^^^^^^^^^^^^^^^
 

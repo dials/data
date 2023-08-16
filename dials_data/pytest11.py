@@ -3,6 +3,8 @@ pytest plugin functions
 """
 
 
+from __future__ import annotations
+
 import pytest
 
 from .download import DataFetcher
@@ -18,7 +20,7 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture(scope="session")
-def dials_data(request):
+def dials_data(request) -> DataFetcher:
     """
     Return the location of a regression dataset as py.path object.
     Download the files if they are not on disk already.

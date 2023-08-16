@@ -11,10 +11,10 @@ stages:
       - task: UsePythonVersion@0
         displayName: Set up python
         inputs:
-          versionSpec: 3.6
+          versionSpec: 3.7
 
       - bash: python .azure-pipelines/syntax-validation.py
-        displayName: Syntax validation (3.6)
+        displayName: Syntax validation (3.7)
 
       - task: UsePythonVersion@0
         displayName: Set up python
@@ -26,9 +26,16 @@ stages:
 
       - bash: |
           set -eux
-          pip install --disable-pip-version-check flake8
+          pip install --disable-pip-version-check flake8 flake8-comprehensions
           python .azure-pipelines/flake8-validation.py
         displayName: Flake8 validation
+
+      - bash: |
+          set -eux
+          # install versions matching the ones in the corresponding pre-commit hook
+          pip install --disable-pip-version-check mypy==0.931 types-PyYAML==6.0.4 types-requests==2.27.11
+          mypy --no-strict-optional dials_data/
+        displayName: Type checking
 
       # Set up constants for further build steps
       - bash: |
@@ -155,8 +162,6 @@ stages:
       vmImage: ubuntu-20.04
     strategy:
       matrix:
-        python36:
-          PYTHON_VERSION: 3.6
         python37:
           PYTHON_VERSION: 3.7
         python38:
@@ -172,8 +177,6 @@ stages:
       vmImage: macOS-latest
     strategy:
       matrix:
-        python36:
-          PYTHON_VERSION: 3.6
         python37:
           PYTHON_VERSION: 3.7
         python38:
@@ -189,8 +192,6 @@ stages:
       vmImage: windows-latest
     strategy:
       matrix:
-        python36:
-          PYTHON_VERSION: 3.6
         python37:
           PYTHON_VERSION: 3.7
         python38:

@@ -12,6 +12,8 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+from __future__ import annotations
+
 # If extensions (or modules to document with autodoc) are in another
 # directory, add these directories to sys.path here. If the directory is
 # relative to the documentation root, use os.path.abspath to make it
@@ -54,7 +56,7 @@ author = "Markus Gerstel"
 # the built documents.
 #
 # The short X.Y version.
-version = "2.2.0"
+version = "2.4.0"
 # The full version, including alpha/beta/rc tags.
 release = version
 
