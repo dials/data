@@ -27,4 +27,4 @@ repos:
   hooks:
   - id: mypy
     files: 'dials_data/.*\.py$'
-    additional_dependencies: ['types-PyYAML==6.0.4', 'types-requests==2.27.11']
+    additional_dependencies: ['types-PyYAML==6.0.12', 'types-requests==2.31.0']
