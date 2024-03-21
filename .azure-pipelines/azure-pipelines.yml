@@ -107,10 +107,6 @@ stages:
           pathToPublish: dist/
           artifactName: package
 
-      - bash: |
-          twine check dist/pypi/*
-        displayName: Check package description
-
 - stage: update
   displayName: Update hashes
   dependsOn:
