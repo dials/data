@@ -85,7 +85,7 @@ stages:
           versionSpec: 3.9
 
       - bash: |
-          pip install --disable-pip-version-check -r requirements_dev.txt
+          pip install --disable-pip-version-check -r requirements_dev.txt build
         displayName: Install dependencies
 
       - bash: .azure-pipelines/update-package-version
@@ -93,7 +93,7 @@ stages:
 
       - bash: |
           set -ex
-          python setup.py sdist bdist_wheel
+          python -m build
           mkdir -p dist/pypi
           shopt -s extglob
           mv -v dist/!(pypi) dist/pypi
@@ -109,7 +109,6 @@ stages:
 
       - bash: |
           twine check dist/pypi/*
-          python setup.py checkdocs
         displayName: Check package description
 
 - stage: update
