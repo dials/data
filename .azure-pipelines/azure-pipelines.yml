@@ -182,7 +182,7 @@ stages:
   - tests
   condition: and(succeeded(),
                  eq(dependencies.static.outputs['checks.constants.BUILD_REPOSITORY_NAME'], 'dials/data'),
-                 eq(dependencies.static.outputs['checks.constants.BUILD_SOURCEBRANCH'], 'refs/heads/master'))
+                 eq(dependencies.static.outputs['checks.constants.BUILD_SOURCEBRANCH'], 'refs/heads/main'))
   jobs:
   - job: pypi
     displayName: Publish pypi release
@@ -224,7 +224,7 @@ stages:
   - build
   - tests
   condition: and(succeeded(),
-                 eq(dependencies.static.outputs['checks.constants.BUILD_SOURCEBRANCH'], 'refs/heads/master'),
+                 eq(dependencies.static.outputs['checks.constants.BUILD_SOURCEBRANCH'], 'refs/heads/main'),
                  eq(dependencies.static.outputs['checks.constants.BUILD_REPOSITORY_NAME'], 'dials/data'))
              # only run this job in the main branch of the main repository
   jobs:
