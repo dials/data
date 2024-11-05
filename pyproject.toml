@@ -23,7 +23,7 @@ classifiers = [
 ]
 keywords = ["dials", "dials_data"]
 dynamic = ["readme"]
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 dependencies = ["pyyaml", "requests", "py", "importlib_resources~=6.3"]
 
 [project.optional-dependencies]

@@ -7,36 +7,6 @@ stages:
     pool:
       vmImage: ubuntu-20.04
     steps:
-      # Run syntax validation using oldest and latest Python
-      - task: UsePythonVersion@0
-        displayName: Set up python
-        inputs:
-          versionSpec: 3.8
-
-      - bash: python .azure-pipelines/syntax-validation.py
-        displayName: Syntax validation (3.7)
-
-      - task: UsePythonVersion@0
-        displayName: Set up python
-        inputs:
-          versionSpec: 3.11
-
-      - bash: python .azure-pipelines/syntax-validation.py
-        displayName: Syntax validation (3.10)
-
-      - bash: |
-          set -eux
-          pip install --disable-pip-version-check ruff
-          python .azure-pipelines/ruff-validation.py
-        displayName: Ruff validation
-
-      - bash: |
-          set -eux
-          # install versions matching the ones in the corresponding pre-commit hook
-          pip install --disable-pip-version-check mypy==1.9.0 types-PyYAML==6.0.12 types-requests==2.31.0
-          mypy --no-strict-optional dials_data/
-        displayName: Type checking
-
       # Set up constants for further build steps
       - bash: |
           echo "##vso[task.setvariable variable=BUILD_REPOSITORY_NAME;isOutput=true]${BUILD_REPOSITORY_NAME}"
