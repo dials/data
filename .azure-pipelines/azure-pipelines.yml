@@ -127,14 +127,15 @@ stages:
       vmImage: ubuntu-20.04
     strategy:
       matrix:
-        python38:
-          PYTHON_VERSION: 3.8
         python39:
           PYTHON_VERSION: 3.9
         python310:
           PYTHON_VERSION: 3.10
         python311:
           PYTHON_VERSION: 3.11
+        python312:
+          PYTHON_VERSION: 3.12
+
     steps:
     - template: ci.yml
   - job: macOS
@@ -150,6 +151,9 @@ stages:
           PYTHON_VERSION: 3.10
         python311:
           PYTHON_VERSION: 3.11
+        python312:
+          PYTHON_VERSION: 3.12
+
     steps:
     - template: ci.yml
   - job: windows
@@ -165,6 +169,9 @@ stages:
           PYTHON_VERSION: 3.10
         python311:
           PYTHON_VERSION: 3.11
+        python312:
+          PYTHON_VERSION: 3.12
+
     steps:
     - template: ci-windows.yml
 
