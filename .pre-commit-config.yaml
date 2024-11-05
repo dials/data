@@ -1,5 +1,6 @@
 ci:
   autoupdate_schedule: quarterly
+  skip: [pip-compile]
 
 repos:
 # Syntax validation and some basic sanity checks
@@ -31,3 +32,16 @@ repos:
   - id: mypy
     files: 'dials_data/.*\.py$'
     additional_dependencies: ['types-PyYAML==6.0.12', 'types-requests==2.31.0']
+
+- repo: https://github.com/astral-sh/uv-pre-commit
+  rev: 0.4.30
+  hooks:
+    - id: pip-compile
+      args: [pyproject.toml, -q, -o, requirements.txt]
+      files: ^(pyproject.toml|requirements(_dev|_doc)?.txt)$
+    - id: pip-compile
+      args: [pyproject.toml, -q, --extra, test, -o, requirements_dev.txt]
+      files: ^(pyproject.toml|requirements(_dev|_doc)?.txt)$
+    - id: pip-compile
+      args: [pyproject.toml, -q, --extra, doc, -o, requirements_doc.txt]
+      files: ^(pyproject.toml|requirements(_dev|_doc)?.txt)$
