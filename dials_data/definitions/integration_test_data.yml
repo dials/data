@@ -1,0 +1,10 @@
+name: Integration test data
+author: Various
+license: CC-BY 4.0
+description: >
+  Data files used in tests of DIALS integration code.
+
+  These files were originally located in the dials_regression
+  repository. They are derived files created by DIALS processing with
+  various versions of DIALS. This version information is not generally
+  available.
