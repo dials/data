@@ -308,6 +308,9 @@ class DataFetcher:
         function.
         :param test_data: name of the requested dataset.
         :param pathlib: Whether to return the result as a Python pathlib object.
+                        Setting to a Falsy value will return a py.path.local()
+                        object, however this is deprecated and this parameter
+                        will be completely removed in a later version.
         :return: A pathlib or py.path.local object pointing to the dataset, or False
                  if the dataset is not available.
         """
