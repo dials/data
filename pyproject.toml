@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dials_data"
-version = "2.4.0"
+version = "3.0.0"
 description = "DIALS Regression Data Manager"
 authors = [
-    { name = "DIALS development team", email = "dials-support@lists.sourceforge.net" },
+    { name = "DIALS development team", email = "dials-user-group@jiscmail.ac.uk" },
 ]
 license = { text = "BSD 3-Clause License" }
 classifiers = [
