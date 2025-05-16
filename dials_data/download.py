@@ -300,7 +300,7 @@ class DataFetcher:
         """
         return result
 
-    def __call__(self, test_data: str, pathlib=None, **kwargs):
+    def __call__(self, test_data: str, pathlib=True, **kwargs):
         """
         Return the location of a dataset, transparently downloading it if
         necessary and possible.
@@ -308,21 +308,17 @@ class DataFetcher:
         function.
         :param test_data: name of the requested dataset.
         :param pathlib: Whether to return the result as a Python pathlib object.
-                        The default for this setting is 'False' for now (leading
-                        to a py.path.local object being returned), but the default
-                        will change to 'True' in a future dials.data release.
-                        Set to 'True' for forward compatibility.
         :return: A pathlib or py.path.local object pointing to the dataset, or False
                  if the dataset is not available.
         """
         if test_data not in self._cache:
             self._cache[test_data] = self._attempt_fetch(test_data)
-        if pathlib is None:
+        if not pathlib:
             warnings.warn(
-                "The DataFetcher currently returns py.path.local() objects. "
-                "This will in the future change to pathlib.Path() objects. "
-                "You can either add a pathlib=True argument to obtain a pathlib.Path() object, "
-                "or pathlib=False to silence this warning for now.",
+                "This DataFetcher request will return a py.path.local() object. "
+                "This is deprecated and the default behaviour is to return a "
+                "pathlib.Path() object. In future the pathlib parameter will be "
+                "removed and a pathlib.Path() will always be returned.",
                 DeprecationWarning,
                 stacklevel=2,
             )
