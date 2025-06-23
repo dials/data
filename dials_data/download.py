@@ -7,13 +7,11 @@ import functools
 import hashlib
 import os
 import tarfile
-import warnings
 import zipfile
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-import py.path
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -300,36 +298,25 @@ class DataFetcher:
         """
         return result
 
-    def __call__(self, test_data: str, pathlib=None, **kwargs):
+    def __call__(self, test_data: str, **kwargs):
         """
         Return the location of a dataset, transparently downloading it if
         necessary and possible.
         The return value can be manipulated by overriding the result_filter
         function.
         :param test_data: name of the requested dataset.
-        :param pathlib: Whether to return the result as a Python pathlib object.
-                        The default for this setting is 'False' for now (leading
-                        to a py.path.local object being returned), but the default
-                        will change to 'True' in a future dials.data release.
-                        Set to 'True' for forward compatibility.
         :return: A pathlib or py.path.local object pointing to the dataset, or False
                  if the dataset is not available.
         """
+        if "pathlib" in kwargs:
+            raise ValueError(
+                "The pathlib parameter has been removed. The "
+                "DataFetcher always returns pathlib.Path() objects now."
+            )
         if test_data not in self._cache:
             self._cache[test_data] = self._attempt_fetch(test_data)
-        if pathlib is None:
-            warnings.warn(
-                "The DataFetcher currently returns py.path.local() objects. "
-                "This will in the future change to pathlib.Path() objects. "
-                "You can either add a pathlib=True argument to obtain a pathlib.Path() object, "
-                "or pathlib=False to silence this warning for now.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
         if not self._cache[test_data]:
             return self.result_filter(result=False)
-        elif not pathlib:
-            return self.result_filter(result=py.path.local(self._cache[test_data]))
         return self.result_filter(result=self._cache[test_data])
 
     def _attempt_fetch(self, test_data: str) -> Path | None:
