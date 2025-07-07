@@ -35,9 +35,9 @@ def cli_info(cmd_args):
     else:
         print(
             f"""
-DIALS regression data manager v{information['version.full']}
+DIALS regression data manager v{information["version.full"]}
 
-repository location: {information['repository.location']}
+repository location: {information["repository.location"]}
 """.strip()
         )
 
