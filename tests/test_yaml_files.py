@@ -43,10 +43,10 @@ def test_yaml_file_is_valid_definition(yaml_file):
     )
     assert definition["data"], "Data definition is empty"
     for n, entry in enumerate(definition["data"]):
-        assert isinstance(
-            entry, dict
-        ), f"Data definition #{n+1} contains non-dictionary entry: {entry!r}"
-        assert "url" in entry, f"Data definition #{n+1} does not specify a URL"
+        assert isinstance(entry, dict), (
+            f"Data definition #{n + 1} contains non-dictionary entry: {entry!r}"
+        )
+        assert "url" in entry, f"Data definition #{n + 1} does not specify a URL"
 
 
 @pytest.mark.parametrize(
@@ -54,9 +54,9 @@ def test_yaml_file_is_valid_definition(yaml_file):
 )
 def test_yaml_file_is_valid_hashinfo(yaml_file):
     assert is_valid_name(yaml_file)
-    assert (
-        yaml_file.name in definition_yamls
-    ), "hashinfo file present without corresponding definition file"
+    assert yaml_file.name in definition_yamls, (
+        "hashinfo file present without corresponding definition file"
+    )
     hashinfo = yaml.safe_load(yaml_file.read_bytes())
     fields = set(hashinfo)
     required = {"definition", "formatversion", "verify"}
