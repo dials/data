@@ -2,13 +2,13 @@
 #    uv pip compile pyproject.toml --extra doc -o requirements_doc.txt
 alabaster==0.7.16
     # via sphinx
-babel==2.16.0
+babel==2.17.0
     # via sphinx
-certifi==2024.8.30
+certifi==2024.12.14
     # via requests
-charset-normalizer==3.4.0
+charset-normalizer==3.4.3
     # via requests
-docutils==0.18.1
+docutils==0.22.2
     # via
     #   sphinx
     #   sphinx-rtd-theme
@@ -16,19 +16,19 @@ idna==3.10
     # via requests
 imagesize==1.4.1
     # via sphinx
-importlib-resources==6.4.5
+importlib-resources==6.5.2
     # via dials-data (pyproject.toml)
 jinja2==3.1.4
     # via sphinx
-markupsafe==3.0.2
+markupsafe==3.0.3
     # via jinja2
-packaging==24.1
+packaging==24.2
     # via sphinx
 py==1.11.0
     # via dials-data (pyproject.toml)
-pygments==2.18.0
+pygments==2.19.2
     # via sphinx
-pyyaml==6.0.1
+pyyaml==6.0.3
     # via dials-data (pyproject.toml)
 requests==2.32.3
     # via
