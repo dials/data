@@ -34,7 +34,7 @@ repos:
     additional_dependencies: ['types-PyYAML==6.0.12', 'types-requests==2.31.0']
 
 - repo: https://github.com/astral-sh/uv-pre-commit
-  rev: 0.4.30
+  rev: 0.5.14
   hooks:
     - id: pip-compile
       args: [pyproject.toml, -q, -o, requirements.txt]
