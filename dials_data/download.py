@@ -7,6 +7,7 @@ import functools
 import hashlib
 import os
 import tarfile
+import warnings
 import zipfile
 from pathlib import Path
 from typing import Any
@@ -309,9 +310,10 @@ class DataFetcher:
                  if the dataset is not available.
         """
         if "pathlib" in kwargs:
-            raise ValueError(
-                "The pathlib parameter has been removed. The "
-                "DataFetcher always returns pathlib.Path() objects now."
+            warnings.warn(
+                "pathlib argument is deprecated: Using Pathlib is now the default (and only) option.",
+                UserWarning,
+                stacklevel=2,
             )
         if test_data not in self._cache:
             self._cache[test_data] = self._attempt_fetch(test_data)
