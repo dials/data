@@ -1,0 +1,7 @@
+definition: d746b4324e6bcfabd866878d17a5109da7a6b9c1abe58beaae1c3584b3e0e1fe
+formatversion: 1
+verify:
+- hash: 98f0ebde7c19b56efc893c6c81bf5c162ecdbc3308b6e29dafd05e8f7368e579
+  size: 64832
+- hash: fd9d2dbcc84423b59a75ce5e47303270a2750c3866135fa195089c2a86fe9008
+  size: 1726576
