@@ -11,5 +11,5 @@ description: >
   
 
 data:
-  - url: https://github.com/dials/data-files/raw/7106f7a50c03c2f9ec9c53043027f671da1707a5/lysozyme_ssx_processed/integrated.expt
-  - url: https://github.com/dials/data-files/raw/7106f7a50c03c2f9ec9c53043027f671da1707a5/lysozyme_ssx_processed/integrated.refl
+  - url: https://github.com/dials/data-files/raw/915d2ff56522ff178aca578574e5be20c33e4dfc/lysozyme_ssx_processed/integrated.expt
+  - url: https://github.com/dials/data-files/raw/915d2ff56522ff178aca578574e5be20c33e4dfc/lysozyme_ssx_processed/integrated.refl
