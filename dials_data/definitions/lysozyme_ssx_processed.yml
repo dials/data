@@ -1,0 +1,15 @@
+name: xia2.ssx output of processing lysozyme SSX data set from I24
+author: James Beilsten-Edmands (2026)
+license: CC-BY 4.0
+description: >
+  Processed integrated datafiles from ssx processing of 10.5281/ZENODO.17160798 (lysozyme from beamline 
+  I24 at Diamond Light Source).
+
+  Processed with command xia2.ssx image=lysozyme_25keV.nxs unit_cell=79,79,38,90,90,90
+  space_group=P43212, in January 2026. Intended for testing data reduction programs on SSX
+  data originating in nxs files. Integrated files contain data from 21 crystals.
+  
+
+data:
+  - url: https://github.com/dials/data-files/raw/7106f7a50c03c2f9ec9c53043027f671da1707a5/lysozyme_ssx_processed/integrated.expt
+  - url: https://github.com/dials/data-files/raw/7106f7a50c03c2f9ec9c53043027f671da1707a5/lysozyme_ssx_processed/integrated.refl
