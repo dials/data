@@ -86,3 +86,5 @@ data:
   - url: https://github.com/dials/data-files/raw/9773cae005710997526d1c58c1cb42a40719af42/image_examples/johns_hopkins_raxisII-lys_001.osc
   - url: https://github.com/dials/data-files/raw/9773cae005710997526d1c58c1cb42a40719af42/image_examples/saturn-lyso_00001.img.bz2
   - url: https://github.com/dials/data-files/raw/9773cae005710997526d1c58c1cb42a40719af42/image_examples/xia2-merge2cbf_averaged_0001.cbf.bz2
+  - url: https://github.com/dials/data-files/raw/b00ff5affb51d1c153af0aec3b9123ae653acb8e/image_examples/Hypix6000-monoclinic_lysozyme1_1_1.rodhypix.bz2
+  - url: https://github.com/dials/data-files/raw/b00ff5affb51d1c153af0aec3b9123ae653acb8e/image_examples/EosS2-pre_SHR248e_CHCl3_pentane_1_1.img.bz2
