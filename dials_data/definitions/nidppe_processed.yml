@@ -1,0 +1,35 @@
+name: DIALS output files from processing a Ni(dppe)Cl₂ data set
+author: David Waterman (2026)
+license: CC-BY 4.0
+description: >
+  DIALS .expt and .refl files derived from processing the Ni(dppe)Cl₂
+  data set from https://zenodo.org/records/20041091 with DIALS v3.29.0.
+
+  Image range and resolution limits were applied to ensure .refl files
+  remained small, which additionally had gzip compression applied.
+  The data set was processed up to integration, with only P1 symmetry
+  applied. This makes this data set a useful example for testing
+  symmetry determination algorithms.
+
+  The commands used to process the data set were as follows:
+
+  export DIALS_USE_GZIP_REFL=1
+  dials.import ../001_NiDppeCl2_01.nxs image_range=1,900
+  dials.find_spots imported.expt d_min=0.65
+  dials.index imported.expt strong.refl.gz
+  dials.refine indexed.expt indexed.refl.gz
+  dials.integrate refined.expt refined.refl.gz prediction.d_min=0.65
+
+  after which the .expt files were manually edited to remove the
+  dirname component of the image template.
+
+data:
+  - url: https://github.com/dials/data-files/raw/6b9e41dbacf48fdef2a37f1933b89478faaf7cad/nidppe_processed/imported.expt
+  - url: https://github.com/dials/data-files/raw/6b9e41dbacf48fdef2a37f1933b89478faaf7cad/nidppe_processed/indexed.expt
+  - url: https://github.com/dials/data-files/raw/6b9e41dbacf48fdef2a37f1933b89478faaf7cad/nidppe_processed/indexed.refl.gz
+  - url: https://github.com/dials/data-files/raw/6b9e41dbacf48fdef2a37f1933b89478faaf7cad/nidppe_processed/integrated.expt
+  - url: https://github.com/dials/data-files/raw/6b9e41dbacf48fdef2a37f1933b89478faaf7cad/nidppe_processed/integrated.refl.gz
+  - url: https://github.com/dials/data-files/raw/6b9e41dbacf48fdef2a37f1933b89478faaf7cad/nidppe_processed/refined.expt
+  - url: https://github.com/dials/data-files/raw/6b9e41dbacf48fdef2a37f1933b89478faaf7cad/nidppe_processed/refined.refl.gz
+  - url: https://github.com/dials/data-files/raw/6b9e41dbacf48fdef2a37f1933b89478faaf7cad/nidppe_processed/strong.refl.gz
+
