@@ -6,7 +6,7 @@ charset-normalizer==3.4.0
     # via requests
 idna==3.10
     # via requests
-importlib-resources==6.4.5
+importlib-resources==7.1.0
     # via dials-data (pyproject.toml)
 py==1.11.0
     # via dials-data (pyproject.toml)
